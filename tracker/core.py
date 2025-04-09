@@ -8,59 +8,58 @@ def clock_in(project: str):
     cursor = DB.cursor()
     ongoing = cursor.execute("SELECT * FROM sessions WHERE clock_out IS NULL").fetchone()
     if ongoing:
-        print(f"Already clocked in to: {ongoing['project_name']} at {ongoing['clock_in']}")
-        return
+        return {"error": f"Already clocked in to: {ongoing['project_name']} at {ongoing['clock_in']}"}
+
     cursor.execute("INSERT INTO sessions (project_name, clock_in) VALUES (?, ?)", (project, datetime.now()))
     DB.commit()
+    return {"message": f"Clocked in to {project} at {datetime.now()}"}
 
 
 def clock_out():
     cursor = DB.cursor()
     session = cursor.execute("SELECT * FROM sessions WHERE clock_out IS NULL").fetchone()
     if not session:
-        print("No active session to clock out of.")
-        return
+        return {"error": "No active session to clock out of."}
+
     cursor.execute("UPDATE sessions SET clock_out = ? WHERE id = ?", (datetime.now(), session['id']))
     DB.commit()
+    return {"message": f"Clocked out from {session['project_name']} at {datetime.now()}"}
 
 
 def status():
     cursor = DB.cursor()
     session = cursor.execute("SELECT * FROM sessions WHERE clock_out IS NULL").fetchone()
     if session:
-        print(f"Clocked in to: {session['project_name']} at {session['clock_in']}")
+        return {"project": session['project_name'], "clock_in": session['clock_in']}
     else:
-        print("No active session.")
+        return {"message": "No active session."}
 
 
 def list_sessions():
     cursor = DB.cursor()
     rows = cursor.execute("SELECT id, project_name, clock_in, clock_out FROM sessions ORDER BY id DESC").fetchall()
     if not rows:
-        print("No sessions found.")
-        return
-    for r in rows:
-        print(dict(r))
+        return {"message": "No sessions found."}
+
+    sessions = [{"id": r['id'], "project_name": r['project_name'], "clock_in": r['clock_in'], "clock_out": r['clock_out']} for r in rows]
+    return {"sessions": sessions}
 
 
 def amend(session_id: int, field: str, value: str):
     if field not in {"clock_in", "clock_out"}:
-        print("Field must be 'clock_in' or 'clock_out'")
-        return
+        return {"error": "Field must be 'clock_in' or 'clock_out'"}
 
     try:
         parsed_value = datetime.strptime(value, "%Y-%m-%d %H:%M:%S")
     except ValueError:
-        print("Invalid datetime format. Use YYYY-MM-DD HH:MM:SS")
-        return
+        return {"error": "Invalid datetime format. Use YYYY-MM-DD HH:MM:SS"}
 
     cursor = DB.cursor()
     session = cursor.execute("SELECT * FROM sessions WHERE id = ?", (session_id,)).fetchone()
 
     if not session:
-        print(f"No session found with ID {session_id}")
-        return
+        return {"error": f"No session found with ID {session_id}"}
 
     cursor.execute(f"UPDATE sessions SET {field} = ? WHERE id = ?", (parsed_value, session_id))
     DB.commit()
-    print(f"{field} updated for session ID {session_id}")
+    return {"message": f"{field} updated for session ID {session_id}"}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">Session List</h1>
+        <table class="table mt-3">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Project</th>
+                    <th scope="col">Clock In</th>
+                    <th scope="col">Clock Out</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for session in sessions %}
+                    <tr>
+                        <td>{{ session['id'] }}</td>
+                        <td>{{ session['project_name'] }}</td>
+                        <td>{{ session['clock_in'] }}</td>
+                        <td>{{ session['clock_out'] if session['clock_out'] else '—' }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{{ url_for('home') }}" class="btn btn-primary mt-3">Back to Home</a>
+    </div>
+</body>
+</html>

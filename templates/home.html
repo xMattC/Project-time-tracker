@@ -1,0 +1,29 @@
+<!-- templates/home.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Time Tracker</title>
+</head>
+<body>
+    <h1>Welcome to Project Time Tracker</h1>
+
+    <form action="/clock_in" method="post">
+        <label for="project">Project Name:</label>
+        <input type="text" id="project" name="project">
+        <button type="submit">Clock In</button>
+    </form>
+
+    <form action="/clock_out" method="post">
+        <button type="submit">Clock Out</button>
+    </form>
+
+    <form action="/status" method="get">
+        <button type="submit">Check Status</button>
+    </form>
+
+    <h2>Sessions</h2>
+    <a href="/sessions">View All Sessions</a>
+</body>
+</html>

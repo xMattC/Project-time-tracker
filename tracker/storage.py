@@ -7,7 +7,8 @@ print(DB_PATH)
 
 
 def get_connection():
-    conn = sqlite3.connect(DB_PATH)
+    conn = sqlite3.connect(DB_PATH,
+                           check_same_thread=False)  # This allows the connection to be used in multiple threads
     conn.row_factory = sqlite3.Row
     return conn
 
