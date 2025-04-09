@@ -1,7 +1,8 @@
 import sqlite3
 from pathlib import Path
 
-DB_PATH = Path("tracker.db")
+DB_PATH = Path(__file__).resolve().parent / "tracker.db"
+
 print(DB_PATH)
 
 
