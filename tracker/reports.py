@@ -1,4 +1,4 @@
-from .storage import get_connection
+from storage import get_connection
 from tabulate import tabulate
 from datetime import datetime
 import pandas as pd
@@ -32,7 +32,8 @@ def generate_report():
         df["clock_out"] = df["clock_out"].apply(lambda x: tidy_timestamp(x))
 
         # Calculate the duration in hours
-        df["duration_hours"] = (pd.to_datetime(df["clock_out"]) - pd.to_datetime(df["clock_in"])).dt.total_seconds() / 3600
+        df["duration_hours"] = (pd.to_datetime(df["clock_out"]) - pd.to_datetime(
+            df["clock_in"])).dt.total_seconds() / 3600
 
         # Group by project and sum the durations
         summary = df.groupby("project_name")["duration_hours"].sum().reset_index()
@@ -62,22 +63,36 @@ def list_sessions():
         ).fetchall()
 
         if not rows:
-            print("No sessions found.")
-            return
+            message = {"message": "No sessions found."}
+            print(message["message"])
 
-        # Prepare data for tabulate
-        data = []
+            return message
+
+        sessions = []
+        table_data = []
+
         for r in rows:
-            clock_in = tidy_timestamp(r['clock_in'])
-            clock_out = tidy_timestamp(r['clock_out']) if r['clock_out'] else '—'
-            data.append([r['id'], r['project_name'], clock_in, clock_out])
+            clock_in = tidy_timestamp(r["clock_in"])
+            clock_out = tidy_timestamp(r["clock_out"]) if r["clock_out"] else "—"
 
-        # Define table headers
+            sessions.append({
+                "id": r["id"],
+                "project_name": r["project_name"],
+                "clock_in": clock_in,
+                "clock_out": clock_out,
+            })
+
+            table_data.append([r["id"], r["project_name"], clock_in, clock_out])
+
         headers = ["ID", "Project", "Clock In", "Clock Out"]
+        print(tabulate(table_data, headers=headers, tablefmt="grid"))
 
-        # Print the table using tabulate
-        print(tabulate(data, headers=headers, tablefmt="grid"))
+        return {"sessions": sessions}
+
     except Exception as e:
-        print(f"Error listing sessions: {e}")
+        error_msg = {"error": f"Error listing sessions: {e}"}
+        print(error_msg["error"])
+        return error_msg
+
     finally:
         cursor.close()
