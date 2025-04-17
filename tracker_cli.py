@@ -15,9 +15,8 @@
 #   pip install typer[all] tabulate
 
 import typer
-import core
-import reports
-from storage import init_db
+from tracker import core, reports
+from tracker.storage import init_db
 
 # Create a Typer app instance
 app = typer.Typer()
