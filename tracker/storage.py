@@ -23,3 +23,10 @@ def init_db():
                 clock_out TIMESTAMP
             )
         ''')
+
+
+def delete_sessions_by_ids(session_ids):
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.executemany("DELETE FROM sessions WHERE id = ?", [(sid,) for sid in session_ids])
+    conn.commit()

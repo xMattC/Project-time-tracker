@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>502</width>
-    <height>304</height>
+    <width>488</width>
+    <height>300</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,17 +16,17 @@
   <widget class="QTableWidget" name="tableWidget_log_edit">
    <property name="geometry">
     <rect>
-     <x>20</x>
+     <x>10</x>
      <y>50</y>
      <width>471</width>
      <height>211</height>
     </rect>
    </property>
   </widget>
-  <widget class="QComboBox" name="comboBox_db_projects_logs">
+  <widget class="QComboBox" name="comboBox_projects">
    <property name="geometry">
     <rect>
-     <x>70</x>
+     <x>60</x>
      <y>20</y>
      <width>151</width>
      <height>22</height>
@@ -36,7 +36,7 @@
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>20</x>
+     <x>10</x>
      <y>20</y>
      <width>43</width>
      <height>22</height>
@@ -55,22 +55,22 @@
   <widget class="QWidget" name="">
    <property name="geometry">
     <rect>
-     <x>337</x>
+     <x>320</x>
      <y>270</y>
-     <width>151</width>
+     <width>161</width>
      <height>26</height>
     </rect>
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
-     <widget class="QPushButton" name="pushButton_2">
+     <widget class="QPushButton" name="pushButton_edit_log">
       <property name="text">
        <string>Edit</string>
       </property>
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="pushButton_delete_log">
       <property name="text">
        <string>Delete</string>
       </property>
