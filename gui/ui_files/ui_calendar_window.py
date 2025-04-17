@@ -12,14 +12,14 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_CalendarWindow(object):
     def setupUi(self, CalendarWindow):
         CalendarWindow.setObjectName("CalendarWindow")
-        CalendarWindow.resize(393, 294)
+        CalendarWindow.resize(390, 282)
         self.buttonBox = QtWidgets.QDialogButtonBox(parent=CalendarWindow)
         self.buttonBox.setGeometry(QtCore.QRect(30, 240, 341, 32))
         self.buttonBox.setOrientation(QtCore.Qt.Orientation.Horizontal)
         self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.StandardButton.Cancel|QtWidgets.QDialogButtonBox.StandardButton.Ok)
         self.buttonBox.setObjectName("buttonBox")
         self.calendarWidget = QtWidgets.QCalendarWidget(parent=CalendarWindow)
-        self.calendarWidget.setGeometry(QtCore.QRect(20, 20, 351, 211))
+        self.calendarWidget.setGeometry(QtCore.QRect(10, 10, 361, 221))
         self.calendarWidget.setObjectName("calendarWidget")
 
         self.retranslateUi(CalendarWindow)
