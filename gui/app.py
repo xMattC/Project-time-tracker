@@ -4,11 +4,13 @@ from tracker.storage import init_db
 import sys
 from tracker.storage import get_connection
 from datetime import datetime
+from PyQt6.QtCore import Qt
 
 from gui.ui_files.ui_main_window import Ui_MainWindow
 from gui.ui_files.ui_select_data_window import Ui_SelectDataWindow
 from gui.ui_files.ui_calendar_window import Ui_CalendarWindow
 from session_updater import SessionTableUpdater
+from total_hours_updater import ReportTableUpdater
 
 DB = get_connection()
 
@@ -42,10 +44,14 @@ class ProjectTrackerWindow(QMainWindow, Ui_MainWindow):
         self.pushButton_add_project.clicked.connect(self.add_new_project)
         # self.label_print_out.clicked.connect(self.)
 
+        # self.report_updater = ReportTableUpdater(self.tableWidget_reports)
+
+        # Set-up hours and sessions tables
         self.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         self.tableWidget_reports.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         self.tableWidget.verticalHeader().setVisible(False)
         self.tableWidget_reports.verticalHeader().setVisible(False)
+        self.tableWidget_reports.setSortingEnabled(True)
 
         # Print stats on init:
         self.label_print_out.setText(core.status())
@@ -59,6 +65,7 @@ class ProjectTrackerWindow(QMainWindow, Ui_MainWindow):
         clocked_in = cursor.execute("SELECT * FROM sessions WHERE clock_out IS NULL").fetchone()
         if clocked_in:
             self.error_msg_already_clocked_in(clocked_in['project_name'])
+            self.comboBox_db_projects.setCurrentText(clocked_in['project_name'])
             return
 
         project = self.comboBox_db_projects.currentText()
@@ -69,21 +76,21 @@ class ProjectTrackerWindow(QMainWindow, Ui_MainWindow):
             core.clock_in(project)
             self.label_print_out.setText(core.status())
             self.update_sessions_table()
+            self.update_hours_table()
 
     def clock_out(self):
         core.clock_out()
         self.label_print_out.setText(core.status())
         self.update_sessions_table()
+        self.update_hours_table()
 
     def update_hours_table(self):
-        result = reports.generate_report()
-        self.tableWidget_reports.setRowCount(len(result["report"]))
-        self.tableWidget_reports.setColumnCount(2)
-        self.tableWidget_reports.setHorizontalHeaderLabels(["Project", "Duration"])
+        # Remove any table sorting:
+        self.tableWidget_reports.horizontalHeader().setSortIndicator(-1, Qt.SortOrder.AscendingOrder)
 
-        for row_index, entry in enumerate(result["report"]):
-            self.tableWidget_reports.setItem(row_index, 0, QTableWidgetItem(entry["project_name"]))
-            self.tableWidget_reports.setItem(row_index, 1, QTableWidgetItem(entry["duration"]))
+        report = reports.generate_report()["report"]
+        updater = ReportTableUpdater(self.tableWidget_reports)
+        updater.update_table(report)
 
     def update_sessions_table(self):
         result = reports.list_sessions()
@@ -91,11 +98,14 @@ class ProjectTrackerWindow(QMainWindow, Ui_MainWindow):
         updater.update_sessions_table(result)
 
     def update_project_combo_box(self):
-        # add all project from db.
         project_names = get_all_unique_project_names()
         self.comboBox_db_projects.clear()
         self.comboBox_db_projects.addItem(self.combi_box_default)
         self.comboBox_db_projects.addItems(project_names)
+        cursor = DB.cursor()
+        clocked_in = cursor.execute("SELECT * FROM sessions WHERE clock_out IS NULL").fetchone()
+        if clocked_in:
+            self.comboBox_db_projects.setCurrentText(clocked_in['project_name'])
 
     def add_new_project(self):
         project, ok = QInputDialog.getText(self, "New Project", "Enter Project Name : ")
