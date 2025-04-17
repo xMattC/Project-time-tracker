@@ -31,8 +31,14 @@ def generate_report():
         df["duration_hours"] = (pd.to_datetime(df["clock_out"]) - pd.to_datetime(
             df["clock_in"])).dt.total_seconds() / 3600
 
-        # Group and summarize
-        summary = df.groupby("project_name")["duration_hours"].sum().reset_index()
+        # Group and summarize durations
+        duration_summary = df.groupby("project_name")["duration_hours"].sum().reset_index()
+
+        # Get latest clock_out per project
+        latest_clock_outs = df.groupby("project_name")["clock_out"].max().reset_index()
+
+        # Merge both summaries
+        summary = pd.merge(duration_summary, latest_clock_outs, on="project_name")
 
         # Build return and display data
         report_data = []
@@ -42,15 +48,17 @@ def generate_report():
             minutes = int((row['duration_hours'] - hours) * 60)
             duration_str = f"{hours}h {minutes}m"
             project_name = row["project_name"]
+            latest_clock_out = row["clock_out"]
+
             report_data.append({
                 "project_name": project_name,
-                "duration": duration_str
+                "duration": duration_str,
+                "latest_clock_out": latest_clock_out  # Include this in the returned data
             })
             table_data.append([project_name, duration_str])
 
         headers = ["Project", "Duration"]
         table_str = tabulate(table_data, headers=headers, tablefmt="grid")
-        print(table_str)
 
         return {
             "report": report_data,

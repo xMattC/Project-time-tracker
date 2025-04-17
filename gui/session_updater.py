@@ -44,7 +44,7 @@ class SessionTableUpdater:
                     minutes = remainder // 60
                     duration = f"{hours}h {minutes}m"
                 else:
-                    duration = "Invalid Time"
+                    duration = "TBD"
             elif clock_in and not clock_out:
                 duration = "Ongoing"  # If clock_in is present but no clock_out
 
