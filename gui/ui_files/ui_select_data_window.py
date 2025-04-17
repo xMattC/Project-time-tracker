@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'D:\My Documents\Work\Frelancing\Projects\Project-time-tracker\gui\ui_files\ui_select_data_window.ui'
+# Form implementation generated from reading ui file 'D:\My Documents\Work\Frelancing\Projects\Project-time-tracker\gui\ui_files\select_data_window.ui'
 #
 # Created by: PyQt6 UI code generator 6.4.2
 #
@@ -9,16 +9,16 @@
 from PyQt6 import QtCore, QtGui, QtWidgets
 
 
-class Ui_Dialog(object):
-    def setupUi(self, Dialog):
-        Dialog.setObjectName("Dialog")
-        Dialog.resize(291, 172)
-        self.buttonBox = QtWidgets.QDialogButtonBox(parent=Dialog)
+class Ui_SelectDataWindow(object):
+    def setupUi(self, SelectDataWindow):
+        SelectDataWindow.setObjectName("SelectDataWindow")
+        SelectDataWindow.resize(291, 172)
+        self.buttonBox = QtWidgets.QDialogButtonBox(parent=SelectDataWindow)
         self.buttonBox.setGeometry(QtCore.QRect(170, 130, 101, 24))
         self.buttonBox.setOrientation(QtCore.Qt.Orientation.Horizontal)
         self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.StandardButton.Cancel|QtWidgets.QDialogButtonBox.StandardButton.Ok)
         self.buttonBox.setObjectName("buttonBox")
-        self.layoutWidget = QtWidgets.QWidget(parent=Dialog)
+        self.layoutWidget = QtWidgets.QWidget(parent=SelectDataWindow)
         self.layoutWidget.setGeometry(QtCore.QRect(10, 20, 261, 26))
         self.layoutWidget.setObjectName("layoutWidget")
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.layoutWidget)
@@ -37,7 +37,7 @@ class Ui_Dialog(object):
         self.pushButton_3.setIconSize(QtCore.QSize(16, 16))
         self.pushButton_3.setObjectName("pushButton_3")
         self.horizontalLayout_2.addWidget(self.pushButton_3)
-        self.layoutWidget_2 = QtWidgets.QWidget(parent=Dialog)
+        self.layoutWidget_2 = QtWidgets.QWidget(parent=SelectDataWindow)
         self.layoutWidget_2.setGeometry(QtCore.QRect(10, 70, 261, 26))
         self.layoutWidget_2.setObjectName("layoutWidget_2")
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout(self.layoutWidget_2)
@@ -56,25 +56,25 @@ class Ui_Dialog(object):
         self.pushButton_4.setObjectName("pushButton_4")
         self.horizontalLayout_3.addWidget(self.pushButton_4)
 
-        self.retranslateUi(Dialog)
-        self.buttonBox.rejected.connect(Dialog.reject) # type: ignore
-        self.buttonBox.accepted.connect(Dialog.accept) # type: ignore
-        QtCore.QMetaObject.connectSlotsByName(Dialog)
+        self.retranslateUi(SelectDataWindow)
+        self.buttonBox.rejected.connect(SelectDataWindow.reject) # type: ignore
+        self.buttonBox.accepted.connect(SelectDataWindow.accept) # type: ignore
+        QtCore.QMetaObject.connectSlotsByName(SelectDataWindow)
 
-    def retranslateUi(self, Dialog):
+    def retranslateUi(self, SelectDataWindow):
         _translate = QtCore.QCoreApplication.translate
-        Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
-        self.label.setText(_translate("Dialog", "  From:"))
-        self.pushButton_3.setText(_translate("Dialog", "Select"))
-        self.label_3.setText(_translate("Dialog", "       To:"))
-        self.pushButton_4.setText(_translate("Dialog", "Select"))
+        SelectDataWindow.setWindowTitle(_translate("SelectDataWindow", "Dialog"))
+        self.label.setText(_translate("SelectDataWindow", "  From:"))
+        self.pushButton_3.setText(_translate("SelectDataWindow", "Select"))
+        self.label_3.setText(_translate("SelectDataWindow", "       To:"))
+        self.pushButton_4.setText(_translate("SelectDataWindow", "Select"))
 
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    Dialog = QtWidgets.QDialog()
-    ui = Ui_Dialog()
-    ui.setupUi(Dialog)
-    Dialog.show()
+    SelectDataWindow = QtWidgets.QDialog()
+    ui = Ui_SelectDataWindow()
+    ui.setupUi(SelectDataWindow)
+    SelectDataWindow.show()
     sys.exit(app.exec())
