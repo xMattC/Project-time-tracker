@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'D:\My Documents\Work\Frelancing\Projects\Project-time-tracker\gui\ui_files\ui_main_window.ui'
+# Form implementation generated from reading ui file 'D:\My Documents\Work\Frelancing\Projects\Project-time-tracker\gui\ui_files\main_window.ui'
 #
 # Created by: PyQt6 UI code generator 6.4.2
 #
@@ -12,15 +12,15 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(575, 478)
+        MainWindow.resize(568, 475)
         self.centralwidget = QtWidgets.QWidget(parent=MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.groupBox = QtWidgets.QGroupBox(parent=self.centralwidget)
         self.groupBox.setEnabled(True)
-        self.groupBox.setGeometry(QtCore.QRect(20, 10, 261, 131))
+        self.groupBox.setGeometry(QtCore.QRect(20, 10, 261, 141))
         self.groupBox.setObjectName("groupBox")
         self.label_print_out = QtWidgets.QLabel(parent=self.groupBox)
-        self.label_print_out.setGeometry(QtCore.QRect(10, 90, 241, 21))
+        self.label_print_out.setGeometry(QtCore.QRect(10, 90, 241, 41))
         self.label_print_out.setStyleSheet("")
         self.label_print_out.setObjectName("label_print_out")
         self.layoutWidget = QtWidgets.QWidget(parent=self.groupBox)
@@ -56,7 +56,7 @@ class Ui_MainWindow(object):
         self.pushButton_add_project.setObjectName("pushButton_add_project")
         self.horizontalLayout.addWidget(self.pushButton_add_project)
         self.groupBox_2 = QtWidgets.QGroupBox(parent=self.centralwidget)
-        self.groupBox_2.setGeometry(QtCore.QRect(20, 210, 531, 211))
+        self.groupBox_2.setGeometry(QtCore.QRect(20, 220, 531, 211))
         self.groupBox_2.setObjectName("groupBox_2")
         self.tableWidget = QtWidgets.QTableWidget(parent=self.groupBox_2)
         self.tableWidget.setGeometry(QtCore.QRect(10, 20, 511, 181))
@@ -64,10 +64,10 @@ class Ui_MainWindow(object):
         self.tableWidget.setColumnCount(0)
         self.tableWidget.setRowCount(0)
         self.groupBox_4 = QtWidgets.QGroupBox(parent=self.centralwidget)
-        self.groupBox_4.setGeometry(QtCore.QRect(290, 10, 261, 201))
+        self.groupBox_4.setGeometry(QtCore.QRect(290, 10, 261, 211))
         self.groupBox_4.setObjectName("groupBox_4")
         self.tableWidget_reports = QtWidgets.QTableWidget(parent=self.groupBox_4)
-        self.tableWidget_reports.setGeometry(QtCore.QRect(10, 20, 241, 171))
+        self.tableWidget_reports.setGeometry(QtCore.QRect(10, 20, 241, 181))
         self.tableWidget_reports.setObjectName("tableWidget_reports")
         self.tableWidget_reports.setColumnCount(0)
         self.tableWidget_reports.setRowCount(0)
@@ -81,10 +81,10 @@ class Ui_MainWindow(object):
         self.button_status.setGeometry(QtCore.QRect(400, 460, 95, 24))
         self.button_status.setObjectName("button_status")
         self.groupBox_3 = QtWidgets.QGroupBox(parent=self.centralwidget)
-        self.groupBox_3.setGeometry(QtCore.QRect(20, 140, 261, 71))
+        self.groupBox_3.setGeometry(QtCore.QRect(20, 150, 261, 71))
         self.groupBox_3.setObjectName("groupBox_3")
         self.widget = QtWidgets.QWidget(parent=self.groupBox_3)
-        self.widget.setGeometry(QtCore.QRect(10, 30, 241, 26))
+        self.widget.setGeometry(QtCore.QRect(10, 20, 241, 26))
         self.widget.setObjectName("widget")
         self.gridLayout_2 = QtWidgets.QGridLayout(self.widget)
         self.gridLayout_2.setContentsMargins(0, 0, 0, 0)
@@ -99,7 +99,7 @@ class Ui_MainWindow(object):
         self.gridLayout_2.setColumnStretch(0, 5)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(parent=MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 575, 22))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 568, 22))
         self.menubar.setObjectName("menubar")
         self.menuFile = QtWidgets.QMenu(parent=self.menubar)
         self.menuFile.setObjectName("menuFile")
