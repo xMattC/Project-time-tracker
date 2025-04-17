@@ -11,23 +11,9 @@ from gui.ui_files.ui_select_data_window import Ui_SelectDataWindow
 from gui.ui_files.ui_calendar_window import Ui_CalendarWindow
 from session_updater import SessionTableUpdater
 from total_hours_updater import ReportTableUpdater
+from utility_functions import get_all_unique_project_names, check_if_clocked_in
 
 DB = get_connection()
-
-
-def get_all_unique_project_names():
-    cursor = DB.cursor()
-
-    try:
-        rows = cursor.execute("SELECT DISTINCT project_name FROM sessions ORDER BY project_name").fetchall()
-        return [row["project_name"] for row in rows]
-
-    except Exception as e:
-        print(f"Error fetching project names: {e}")
-        return []
-
-    finally:
-        cursor.close()
 
 
 class ProjectTrackerWindow(QMainWindow, Ui_MainWindow):
@@ -61,8 +47,7 @@ class ProjectTrackerWindow(QMainWindow, Ui_MainWindow):
 
     def clock_in(self):
 
-        cursor = DB.cursor()
-        clocked_in = cursor.execute("SELECT * FROM sessions WHERE clock_out IS NULL").fetchone()
+        clocked_in = check_if_clocked_in()
         if clocked_in:
             self.error_msg_already_clocked_in(clocked_in['project_name'])
             self.comboBox_db_projects.setCurrentText(clocked_in['project_name'])
@@ -71,6 +56,7 @@ class ProjectTrackerWindow(QMainWindow, Ui_MainWindow):
         project = self.comboBox_db_projects.currentText()
         if project == self.combi_box_default:
             self.error_msg_no_project()
+            return
 
         else:
             core.clock_in(project)
@@ -102,8 +88,8 @@ class ProjectTrackerWindow(QMainWindow, Ui_MainWindow):
         self.comboBox_db_projects.clear()
         self.comboBox_db_projects.addItem(self.combi_box_default)
         self.comboBox_db_projects.addItems(project_names)
-        cursor = DB.cursor()
-        clocked_in = cursor.execute("SELECT * FROM sessions WHERE clock_out IS NULL").fetchone()
+
+        clocked_in = check_if_clocked_in()
         if clocked_in:
             self.comboBox_db_projects.setCurrentText(clocked_in['project_name'])
 
