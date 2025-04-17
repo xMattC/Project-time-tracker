@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file '.\main_window.ui'
+# Form implementation generated from reading ui file 'D:\My Documents\Work\Frelancing\Projects\Project-time-tracker\gui\ui_files\ui_main_window.ui'
 #
 # Created by: PyQt6 UI code generator 6.4.2
 #
