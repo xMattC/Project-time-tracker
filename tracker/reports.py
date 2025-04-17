@@ -1,4 +1,4 @@
-from storage import get_connection
+from tracker.storage import get_connection
 from tabulate import tabulate
 from datetime import datetime
 import pandas as pd
@@ -17,39 +17,51 @@ def generate_report():
     cursor = DB.cursor()
     try:
         rows = cursor.execute(
-            "SELECT project_name, clock_in, clock_out FROM sessions WHERE clock_out IS NOT NULL"
-        ).fetchall()
+            "SELECT project_name, clock_in, clock_out FROM sessions WHERE clock_out IS NOT NULL").fetchall()
 
         if not rows:
-            print("No completed sessions yet.")
-            return
+            message = {"message": "No completed sessions yet."}
+            print(message["message"])
+            return message
 
-        # Convert rows to DataFrame
+        # Convert to DataFrame
         df = pd.DataFrame(rows, columns=["project_name", "clock_in", "clock_out"])
-
-        # Tidy up the clock_in and clock_out
         df["clock_in"] = df["clock_in"].apply(tidy_timestamp)
-        df["clock_out"] = df["clock_out"].apply(lambda x: tidy_timestamp(x))
-
-        # Calculate the duration in hours
+        df["clock_out"] = df["clock_out"].apply(tidy_timestamp)
         df["duration_hours"] = (pd.to_datetime(df["clock_out"]) - pd.to_datetime(
             df["clock_in"])).dt.total_seconds() / 3600
 
-        # Group by project and sum the durations
+        # Group and summarize
         summary = df.groupby("project_name")["duration_hours"].sum().reset_index()
 
-        # Prepare the data for tabulate
-        data = []
+        # Build return and display data
+        report_data = []
+        table_data = []
         for _, row in summary.iterrows():
-            data.append([row["project_name"], f"{row['duration_hours']:.2f} hours"])
+            hours = int(row['duration_hours'])
+            minutes = int((row['duration_hours'] - hours) * 60)
+            duration_str = f"{hours}h {minutes}m"
+            project_name = row["project_name"]
+            report_data.append({
+                "project_name": project_name,
+                "duration": duration_str
+            })
+            table_data.append([project_name, duration_str])
 
-        # Define headers
-        headers = ["Project", "Total Duration"]
+        headers = ["Project", "Duration"]
+        table_str = tabulate(table_data, headers=headers, tablefmt="grid")
+        print(table_str)
 
-        # Print the report using tabulate
-        print(tabulate(data, headers=headers, tablefmt="grid"))
+        return {
+            "report": report_data,
+            "table": table_str
+        }
+
     except Exception as e:
-        print(f"Error generating report: {e}")
+        error_msg = {"error": f"Error generating report: {e}"}
+        print(error_msg["error"])
+        return error_msg
+
     finally:
         cursor.close()
 
@@ -85,9 +97,13 @@ def list_sessions():
             table_data.append([r["id"], r["project_name"], clock_in, clock_out])
 
         headers = ["ID", "Project", "Clock In", "Clock Out"]
-        print(tabulate(table_data, headers=headers, tablefmt="grid"))
+        table_str = tabulate(table_data, headers=headers, tablefmt="grid")
+        print(table_str)
 
-        return {"sessions": sessions}
+        return {
+            "sessions": sessions,
+            "table": table_str
+        }
 
     except Exception as e:
         error_msg = {"error": f"Error listing sessions: {e}"}

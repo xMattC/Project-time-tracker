@@ -1,5 +1,5 @@
 from datetime import datetime
-from storage import get_connection
+from tracker.storage import get_connection
 
 DB = get_connection()
 
