@@ -12,9 +12,9 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_CalendarWindow(object):
     def setupUi(self, CalendarWindow):
         CalendarWindow.setObjectName("CalendarWindow")
-        CalendarWindow.resize(390, 282)
+        CalendarWindow.resize(390, 285)
         self.buttonBox = QtWidgets.QDialogButtonBox(parent=CalendarWindow)
-        self.buttonBox.setGeometry(QtCore.QRect(30, 240, 341, 32))
+        self.buttonBox.setGeometry(QtCore.QRect(200, 240, 171, 32))
         self.buttonBox.setOrientation(QtCore.Qt.Orientation.Horizontal)
         self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.StandardButton.Cancel|QtWidgets.QDialogButtonBox.StandardButton.Ok)
         self.buttonBox.setObjectName("buttonBox")

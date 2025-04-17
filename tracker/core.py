@@ -70,3 +70,11 @@ def amend(session_id: int, field: str, value: str) -> str:
     cursor.execute(f"UPDATE sessions SET {field} = ? WHERE id = ?", (parsed_value, session_id))
     DB.commit()
     return f"{field} updated for session ID {session_id}"
+
+
+def delete_session_by_id(session_id):
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM sessions WHERE id = ?", (session_id,))
+    conn.commit()
+    conn.close()
