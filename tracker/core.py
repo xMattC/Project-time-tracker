@@ -33,12 +33,9 @@ def status() -> str:
     cursor = DB.cursor()
     session = cursor.execute("SELECT * FROM sessions WHERE clock_out IS NULL").fetchone()
     if session:
-        # Assuming clock_in is stored as a string in the format '%Y-%m-%d %H:%M:%S.%f'
-        clock_in = datetime.strptime(session['clock_in'], '%Y-%m-%d %H:%M:%S.%f')
-        formatted_time = clock_in.strftime('%H:%M %d %b %y')  # Format: 16:35 - 10 Jan 23
-        return f"Clocked-in, {session['project_name']}, {formatted_time}"
+        return f"Clocked-in"
     else:
-        return "No active session."
+        return "Clocked-out"
 
 
 def list_sessions() -> str:

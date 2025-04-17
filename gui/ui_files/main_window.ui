@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>568</width>
-    <height>475</height>
+    <width>513</width>
+    <height>405</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,7 +20,7 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>20</x>
+      <x>10</x>
       <y>10</y>
       <width>261</width>
       <height>141</height>
@@ -32,9 +32,9 @@
     <widget class="QLabel" name="label_print_out">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>60</x>
        <y>90</y>
-       <width>241</width>
+       <width>191</width>
        <height>41</height>
       </rect>
      </property>
@@ -59,12 +59,12 @@
        <widget class="QLabel" name="label_2">
         <property name="font">
          <font>
-          <pointsize>12</pointsize>
-          <bold>true</bold>
+          <pointsize>10</pointsize>
+          <bold>false</bold>
          </font>
         </property>
         <property name="text">
-         <string>PROJECT</string>
+         <string>Project:</string>
         </property>
        </widget>
       </item>
@@ -110,10 +110,10 @@
    <widget class="QGroupBox" name="groupBox_2">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>220</y>
-      <width>531</width>
-      <height>211</height>
+      <x>10</x>
+      <y>150</y>
+      <width>491</width>
+      <height>201</height>
      </rect>
     </property>
     <property name="title">
@@ -124,8 +124,8 @@
       <rect>
        <x>10</x>
        <y>20</y>
-       <width>511</width>
-       <height>181</height>
+       <width>471</width>
+       <height>171</height>
       </rect>
      </property>
     </widget>
@@ -133,10 +133,10 @@
    <widget class="QGroupBox" name="groupBox_4">
     <property name="geometry">
      <rect>
-      <x>290</x>
+      <x>280</x>
       <y>10</y>
-      <width>261</width>
-      <height>211</height>
+      <width>221</width>
+      <height>141</height>
      </rect>
     </property>
     <property name="title">
@@ -147,8 +147,8 @@
       <rect>
        <x>10</x>
        <y>20</y>
-       <width>241</width>
-       <height>181</height>
+       <width>201</width>
+       <height>111</height>
       </rect>
      </property>
     </widget>
@@ -192,55 +192,13 @@
      <string>Status</string>
     </property>
    </widget>
-   <widget class="QGroupBox" name="groupBox_3">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>150</y>
-      <width>261</width>
-      <height>71</height>
-     </rect>
-    </property>
-    <property name="title">
-     <string>Display</string>
-    </property>
-    <widget class="QWidget" name="">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>20</y>
-       <width>241</width>
-       <height>26</height>
-      </rect>
-     </property>
-     <layout class="QGridLayout" name="gridLayout_2" columnstretch="5,0">
-      <item row="0" column="0">
-       <widget class="QLabel" name="label_display_data">
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(255, 255, 255);</string>
-        </property>
-        <property name="text">
-         <string>Display-data-period</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QPushButton" name="pushButton">
-        <property name="text">
-         <string>Data</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>568</width>
+     <width>513</width>
      <height>22</height>
     </rect>
    </property>
@@ -249,8 +207,6 @@
      <string>File</string>
     </property>
     <addaction name="actionExport_Data"/>
-    <addaction name="actionGraphs"/>
-    <addaction name="separator"/>
     <addaction name="actionEdit_Logs"/>
    </widget>
    <addaction name="menuFile"/>
