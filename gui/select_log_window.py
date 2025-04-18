@@ -59,8 +59,8 @@ class SelectLogWindow(QMainWindow, Ui_SelectLogWindow):
         selected_project = self.comboBox_projects.currentText().strip()  # Get currently selected project name
         filtered_sessions = filter_sessions_by_project(sessions, selected_project)  # Apply project filter
 
-        # Sort sessions by clock-in time (ascending)
-        sorted_sessions = sorted(filtered_sessions, key=lambda session: session['clock_in'])
+        # Sort sessions by clock-in time (descending)
+        sorted_sessions = sorted(filtered_sessions, key=lambda session: session['clock_in'], reverse=True)
 
         LogTableUpdater(self.tableWidget_log_edit).update_sessions_table({"sessions": sorted_sessions})
 
