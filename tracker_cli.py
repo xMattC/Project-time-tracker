@@ -66,7 +66,7 @@ def sessions():
 # Command: Amend a session's timestamp
 @app.command()
 def amend(id: int, field: str, value: str):
-    result = core.amend(id, field, value)
+    result = core.amend_db_session(id, field, value)
     print(result)
 
 

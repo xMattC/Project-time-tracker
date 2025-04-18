@@ -1,72 +1,82 @@
-from PyQt6.QtWidgets import QApplication, QDialog, QMessageBox, QTableWidget, QAbstractItemView
-from PyQt6.QtWidgets import QHeaderView
-from tracker.storage import init_db, delete_sessions_by_ids
-from tracker import reports
-from gui.ui_files.ui_mod_log_window import Ui_ModifyLogWindow
-from log_table_updater import LogTableUpdater, LogTableManager
-from utils import get_all_unique_project_names, filter_sessions_by_project
-from PyQt6.QtCore import Qt
 import sys
-from tracker.storage import get_session_by_id
-from PyQt6.QtCore import QTime, QDate
 
-from PyQt6.QtCore import QTime, QDate
+from PyQt6.QtCore import QDate, QTime, pyqtSignal
+from PyQt6.QtWidgets import QApplication, QDialog, QMessageBox
+
+from gui.ui_files.ui_mod_log_window import Ui_ModifyLogWindow
+from tracker.storage import get_session_by_id, init_db
+from tracker.core import amend_db_session
 
 
 class ModifyLogWindow(QDialog, Ui_ModifyLogWindow):
-    def __init__(self, session_id):
+    """Dialog for modifying log session details."""
+
+    # Signal emitted when a session is updated
+    session_updated = pyqtSignal()
+
+    def __init__(self):
+        """Initialize the window, set up UI and database."""
         super().__init__()
-        self.setupUi(self)  # Set up the UI first before any logic
-
-        init_db()  # Initialize database connection
-        self.session_id = session_id
-        self.session_data = get_session_by_id(self.session_id)
-
-        # Format clock in/out edit:
+        self.setupUi(self)  # Set up the UI
+        init_db()  # Initialize the database
+        self.session_id = None  # Will be set later
         self.dateEdit_clock_in.setDisplayFormat('dd MMM yy')
         self.dateEdit_clock_out.setDisplayFormat('dd MMM yy')
 
-        # Connect button box signals to methods
+        # Connect buttons to their actions
         self.buttonBox.accepted.connect(self.accept_action)
         self.buttonBox.rejected.connect(self.reject_action)
 
-        if self.session_data:
-            self.set_clock_in_time(self.session_data['clock_in'])
-            self.set_clock_out_time(self.session_data['clock_out'])
+    def load_session(self, session_id):
+        """Load session data into UI for editing."""
+        self.session_id = session_id
+        session_data = get_session_by_id(session_id)
 
-        # Show the window after UI has been set up
-        self.show()
+        if not session_data:
+            print(f"No session found with ID: {session_id}")
+            return
 
-    def set_clock_in_time(self, clock_in_str):
-        """Sets the clock-in date and time in the corresponding widgets."""
-        clock_in_date = clock_in_str.split(' ')[0]  # Extract date (YYYY-MM-DD)
-        clock_in_time = clock_in_str.split(' ')[1][:8]  # Extract time (HH:MM:SS), removing fractional seconds
+        self.set_default_time(self.dateEdit_clock_in, self.timeEdit_clock_in, session_data['clock_in'])
+        self.set_default_time(self.dateEdit_clock_out, self.timeEdit_clock_out, session_data['clock_out'])
 
-        hours, minutes, seconds = map(int, clock_in_time.split(':'))
+    def set_default_time(self, date_widget, time_widget, timestamp):
+        """Sets the default date and time from a timestamp string."""
+        date, time = timestamp.split(' ')
+        hours, minutes, seconds = map(int, time[:8].split(':'))
+        date_widget.setDate(QDate.fromString(date, 'yyyy-MM-dd'))
+        time_widget.setTime(QTime(hours, minutes, seconds))
 
-        self.dateEdit_clock_in.setDate(QDate.fromString(clock_in_date, 'yyyy-MM-dd'))
-        self.timeEdit_clock_in.setTime(QTime(hours, minutes, seconds))
+    def get_clock_in_time(self) -> str:
+        """Return clock-in date and time as 'YYYY-MM-DD HH:MM:SS'."""
+        date = self.dateEdit_clock_in.date().toString("yyyy-MM-dd")
+        time = self.timeEdit_clock_in.time().toString("HH:mm:ss")
+        return f"{date} {time}"
 
-    def set_clock_out_time(self, clock_out_str):
-        """Sets the clock-out date and time in the corresponding widgets."""
-        clock_out_date = clock_out_str.split(' ')[0]  # Extract date (YYYY-MM-DD)
-        clock_out_time = clock_out_str.split(' ')[1][:8]  # Extract time (HH:MM:SS), removing fractional seconds
-
-        hours, minutes, seconds = map(int, clock_out_time.split(':'))
-
-        self.dateEdit_clock_out.setDate(QDate.fromString(clock_out_date, 'yyyy-MM-dd'))
-        self.timeEdit_clock_out.setTime(QTime(hours, minutes, seconds))
+    def get_clock_out_time(self) -> str:
+        """Return clock-out date and time as 'YYYY-MM-DD HH:MM:SS'."""
+        date = self.dateEdit_clock_out.date().toString("yyyy-MM-dd")
+        time = self.timeEdit_clock_out.time().toString("HH:mm:ss")
+        return f"{date} {time}"
 
     def accept_action(self):
-        """Handles the OK button click (accepted signal)."""
-        self.accept()  # This closes the dialog
+        """Validate inputs, update session, and close the dialog."""
+        try:
+            clock_in = self.get_clock_in_time()
+            clock_out = self.get_clock_out_time()
+
+            if clock_in >= clock_out:
+                QMessageBox.warning(self, "Invalid Time", "Clock-in must be before clock-out.")
+                return
+
+            amend_db_session(self.session_id, "clock_in", clock_in)
+            amend_db_session(self.session_id, "clock_out", clock_out)
+            self.session_updated.emit()
+            self.accept()  # Close the dialog
+        except Exception as e:
+            print(f"Failed to update session {self.session_id}: {e}")
+            QMessageBox.critical(self, "Error", "Failed to update the session. Please try again.")
 
     def reject_action(self):
-        """Handles the Cancel button click (rejected signal)."""
-        self.reject()  # This closes the dialog without changes
+        """Close the dialog without saving changes."""
+        self.reject()  # Close the dialog without saving changes
 
-
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    window = ModifyLogWindow("2")
-    sys.exit(app.exec())

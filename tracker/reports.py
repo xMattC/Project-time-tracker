@@ -8,7 +8,14 @@ DB = get_connection()
 
 def tidy_timestamp(timestamp_str):
     """Convert timestamp string to a more readable format."""
-    timestamp = datetime.strptime(timestamp_str, "%Y-%m-%d %H:%M:%S.%f")
+    try:
+        # Try parsing the timestamp with microseconds
+        timestamp = datetime.strptime(timestamp_str, "%Y-%m-%d %H:%M:%S.%f")
+    except ValueError:
+        # If microseconds are not present, fallback to parsing without
+        timestamp = datetime.strptime(timestamp_str, "%Y-%m-%d %H:%M:%S")
+
+    # Return the formatted timestamp
     return timestamp.strftime("%Y-%m-%d %H:%M:%S")
 
 

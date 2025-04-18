@@ -30,7 +30,7 @@ class ProjectTrackerWindow(QMainWindow, Ui_MainWindow):
         self.select_log_window = None  # Keeps a persistent reference
         self.actionEdit_Logs.triggered.connect(self.open_select_log_window)
 
-        # Set-up hours and sessions tables
+        # Table configurations
         self.tableWidget_sessions.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         self.tableWidget_sessions.verticalHeader().setVisible(False)
 
@@ -81,6 +81,7 @@ class ProjectTrackerWindow(QMainWindow, Ui_MainWindow):
 
     def update_sessions_table(self):
         result = reports.list_sessions()
+        print(result)
         updater = LogTableUpdater(self.tableWidget_sessions)
         updater.update_sessions_table(result)
 

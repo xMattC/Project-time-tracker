@@ -52,7 +52,7 @@ def list_sessions() -> str:
     return "\n".join(lines)
 
 
-def amend(session_id: int, field: str, value: str) -> str:
+def amend_db_session(session_id: int, field: str, value: str) -> str:
     if field not in {"clock_in", "clock_out"}:
         return "Error: Field must be 'clock_in' or 'clock_out'"
 

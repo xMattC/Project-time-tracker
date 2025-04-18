@@ -29,7 +29,7 @@ class LogTableUpdater:
         """
         try:
             dt = datetime.strptime(value, '%Y-%m-%d %H:%M:%S')
-            return dt, dt.strftime('%H:%M %d %b %y')
+            return dt, dt.strftime('%H:%M  %d %b %y')
         except ValueError:
             return None, "Invalid Date"
 
@@ -39,6 +39,7 @@ class LogTableUpdater:
 
         param result: A dictionary containing session data under the key "sessions".
         """
+        print("RES", result)
         sessions = result["sessions"]
         self.table_widget.setRowCount(len(sessions))
         self.table_widget.setColumnCount(TOTAL_COLUMNS)
