@@ -1,16 +1,15 @@
-from PyQt6.QtWidgets import QMainWindow, QApplication, QTableWidgetItem, QMessageBox, QInputDialog, QHeaderView
-from tracker import core, reports
-from tracker.storage import init_db
 import sys
-from tracker.storage import get_connection
-from datetime import datetime
+
+from PyQt6.QtWidgets import QMainWindow, QApplication, QMessageBox, QInputDialog, QHeaderView
 from PyQt6.QtCore import Qt
 
+from tracker import core, reports
+from tracker.storage import init_db, get_connection
 from gui.ui_files.ui_main_window import Ui_MainWindow
 from select_log_window import SelectLogWindow
-from session_updater import LogTableUpdater
+from log_table_updater import LogTableUpdater
 from total_hours_updater import ReportTableUpdater
-from utility_functions import get_all_unique_project_names, check_if_clocked_in
+from utils import get_all_unique_project_names, check_if_clocked_in
 
 DB = get_connection()
 
