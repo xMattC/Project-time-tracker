@@ -8,7 +8,7 @@ from PyQt6.QtCore import Qt
 
 from gui.ui_files.ui_main_window import Ui_MainWindow
 from select_log_window import SelectLogWindow
-from session_updater import SessionTableUpdater
+from session_updater import LogTableUpdater
 from total_hours_updater import ReportTableUpdater
 from utility_functions import get_all_unique_project_names, check_if_clocked_in
 
@@ -82,7 +82,7 @@ class ProjectTrackerWindow(QMainWindow, Ui_MainWindow):
 
     def update_sessions_table(self):
         result = reports.list_sessions()
-        updater = SessionTableUpdater(self.tableWidget_sessions)
+        updater = LogTableUpdater(self.tableWidget_sessions)
         updater.update_sessions_table(result)
 
     def update_project_combo_box(self):
