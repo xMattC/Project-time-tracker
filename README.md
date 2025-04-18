@@ -82,6 +82,7 @@ python main.py
 The application window will open, allowing you to:
    - **Clock In**: Start tracking time for a specific project.
    - **Clock Out**: End the tracking for the current project.
+   - **Add Project**: Manually enter a new project.
    - **Edit Logs**: Modify existing time entries as needed.
    - **Delete Logs**: Remove any unnecessary or incorrect time entries.
    - **Export to CSV**: Export your time logs to a CSV file for further use.
