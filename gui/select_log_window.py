@@ -1,11 +1,11 @@
-from PyQt6.QtWidgets import QApplication, QMainWindow, QMessageBox, QTableWidget
+from PyQt6.QtWidgets import QApplication, QMainWindow, QMessageBox, QTableWidget, QAbstractItemView
 from PyQt6.QtWidgets import QHeaderView
 from tracker.storage import init_db, delete_sessions_by_ids
 from tracker import reports
 from gui.ui_files.ui_select_log_window import Ui_SelectLogWindow
-from session_updater import SessionTableUpdater
+from log_table_updater import LogTableUpdater, LogTableManager
 from utility_functions import get_all_unique_project_names, filter_sessions_by_project
-from session_updater import SessionTableManager
+from PyQt6.QtCore import Qt
 import sys
 
 
@@ -16,14 +16,20 @@ class SelectLogWindow(QMainWindow, Ui_SelectLogWindow):
         self.show()
         init_db()
 
-        # Table setup
+        self.session_table = LogTableManager(self.tableWidget_log_edit)
+
+        # Table configuration
         self.tableWidget_log_edit.setSelectionBehavior(QTableWidget.SelectionBehavior.SelectRows)
         self.tableWidget_log_edit.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         self.tableWidget_log_edit.setSelectionMode(QTableWidget.SelectionMode.MultiSelection)
-        self.session_table = SessionTableManager(self.tableWidget_log_edit)
+        self.tableWidget_log_edit.setSelectionMode(QAbstractItemView.SelectionMode.MultiSelection)
+        self.tableWidget_log_edit.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
+        self.tableWidget_log_edit.setSelectionMode(QAbstractItemView.SelectionMode.ExtendedSelection)
+        self.tableWidget_log_edit.setSortingEnabled(True)
+        self.tableWidget_log_edit.horizontalHeader().setSortIndicator(-1, Qt.SortOrder.AscendingOrder)
 
         # Events
-        self.comboBox_projects.currentIndexChanged.connect(self.update_log_table)
+        self.comboBox_projects.currentIndexChanged.connect(self.combo_box_index_changed)
         self.pushButton_delete_log.clicked.connect(self.delete_selected_rows)
 
         # edit log button
@@ -38,13 +44,15 @@ class SelectLogWindow(QMainWindow, Ui_SelectLogWindow):
         self.update_log_table()
         self.update_project_combo_box()
 
+    def combo_box_index_changed(self):
+        self.update_log_table()
+        self.clear_table_selection()
+
     def update_log_table(self):
         sessions = reports.list_sessions()["sessions"]
         selected_project = self.comboBox_projects.currentText().strip()
-
         filtered_sessions = filter_sessions_by_project(sessions, selected_project)
-
-        updater = SessionTableUpdater(self.tableWidget_log_edit)
+        updater = LogTableUpdater(self.tableWidget_log_edit)
         updater.update_sessions_table({"sessions": filtered_sessions})
 
     def update_project_combo_box(self):
@@ -80,6 +88,11 @@ class SelectLogWindow(QMainWindow, Ui_SelectLogWindow):
         else:
             self.pushButton_edit_log.setEnabled(False)
 
+    def clear_table_selection(self):
+        """Clears any selected rows in the log table and disables the Edit button."""
+        self.tableWidget_log_edit.clearSelection()
+        self.update_edit_button_state()
+
     def open_edit_log_window(self):
         # Assuming the edit window takes the session_id as a parameter
         # Create a new EditWindow instance and pass the session_id
@@ -87,8 +100,16 @@ class SelectLogWindow(QMainWindow, Ui_SelectLogWindow):
         # if self.select_log_window is None:
         #     self.select_log_window = SelectLogWindow(session_id)
         # self.select_log_window.show()
-
         pass
+
+    def closeEvent(self, event):
+        self.clear_table_selection()  # Clear any table selection when the window is closed
+
+        # Call the base class implementation to ensure the window closes properly.
+        # This includes cleanup, event handling, and system integration (like triggering app exit).
+        # Always include this when overriding closeEvent, unless you specifically want to block the window from closing.
+        super().closeEvent(event)
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

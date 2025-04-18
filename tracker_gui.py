@@ -1,4 +1,4 @@
-from gui.app import ProjectTrackerWindow
+from gui.main_window import ProjectTrackerWindow
 from PyQt6.QtWidgets import QApplication
 import sys
 
