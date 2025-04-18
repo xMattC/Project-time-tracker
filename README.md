@@ -28,16 +28,13 @@ Here are some screenshots of the application in action:
 
 - **Clock In/Clock Out Interface**:
 
-  ![Clock In/Out](screenshots/clock-in-out.png)
+  ![Clock In/Out](gui/images/clock-in-out.png)
 
 - **Edit/Delete Logs**:
 
-  ![Edit/Delete Logs](screenshots/edit-delete.png)
+  ![Edit/Delete Logs](gui/images/edit-delete.png)
 
-- **Export to CSV**:
 
-  ![Export to CSV](screenshots/export-csv.png)
-  
 ## Installation Instructions
 
 ### Step 1: Clone the Repository
