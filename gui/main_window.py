@@ -101,16 +101,16 @@ class ProjectTrackerWindow(QMainWindow, Ui_MainWindow):
             self.comboBox_db_projects.addItem(project)
             self.comboBox_db_projects.setCurrentText(project)
 
-    def open_select_log_window(self):
-        if self.select_log_window is None:
-            self.select_log_window = SelectLogWindow()
-        self.select_log_window.show()
-
     def error_msg_no_project(self):
         QMessageBox.information(self, "Error", "Please Select a project")
 
     def error_msg_already_clocked_in(self, project):
         QMessageBox.information(self, "Error", f"Already clocked-in to {project}")
+
+    def open_select_log_window(self):
+        if self.select_log_window is None:
+            self.select_log_window = SelectLogWindow()
+        self.select_log_window.show()
 
 
 if __name__ == "__main__":

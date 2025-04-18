@@ -26,6 +26,14 @@ class SelectLogWindow(QMainWindow, Ui_SelectLogWindow):
         self.comboBox_projects.currentIndexChanged.connect(self.update_log_table)
         self.pushButton_delete_log.clicked.connect(self.delete_selected_rows)
 
+        # edit log button
+        self.pushButton_edit_log.setEnabled(False)
+        self.select_log_window = None  # Keeps a persistent reference
+        self.pushButton_edit_log.clicked.connect(self.open_edit_log_window)
+
+        # Connect selection change to update the button state
+        self.tableWidget_log_edit.selectionModel().selectionChanged.connect(self.update_edit_button_state)
+
         # Initial UI load
         self.update_log_table()
         self.update_project_combo_box()
@@ -52,12 +60,9 @@ class SelectLogWindow(QMainWindow, Ui_SelectLogWindow):
             QMessageBox.information(self, "No Selection", "Please select one or more rows to delete.")
             return
 
-        confirm = QMessageBox.question(
-            self,
-            "Confirm Deletion",
-            f"Are you sure you want to delete {len(session_ids)} selected session(s)?",
-            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
-        )
+        confirm = QMessageBox.question(self, "Confirm Deletion",
+                                       f"Are you sure you want to delete {len(session_ids)} selected session(s)?",
+                                       QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
 
         if confirm != QMessageBox.StandardButton.Yes:
             return
@@ -67,8 +72,25 @@ class SelectLogWindow(QMainWindow, Ui_SelectLogWindow):
         self.update_project_combo_box()
         QMessageBox.information(self, "Deleted", f"{len(session_ids)} session(s) were deleted.")
 
+    def update_edit_button_state(self):
+        selected_rows = self.tableWidget_log_edit.selectionModel().selectedRows()
+        # Disable the Edit button if multiple rows are selected
+        if len(selected_rows) == 1:
+            self.pushButton_edit_log.setEnabled(True)
+        else:
+            self.pushButton_edit_log.setEnabled(False)
+
+    def open_edit_log_window(self):
+        # Assuming the edit window takes the session_id as a parameter
+        # Create a new EditWindow instance and pass the session_id
+        # session_id
+        # if self.select_log_window is None:
+        #     self.select_log_window = SelectLogWindow(session_id)
+        # self.select_log_window.show()
+
+        pass
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    window = SelectLogWindow()  # The window you're working with
+    window = SelectLogWindow()
     sys.exit(app.exec())
