@@ -4,12 +4,12 @@ from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QAbstractItemView, QApplication, QHeaderView, QMainWindow, QMessageBox
 
 from gui.ui_files.ui_select_log_window import Ui_SelectLogWindow
-from log_table_updater import LogTableManager, LogTableUpdater
-from modify_log_window import ModifyLogWindow
+from gui.log_table_updater import LogTableManager, LogTableUpdater
+from gui.modify_log_window import ModifyLogWindow
 from tracker import reports
 from tracker.storage import delete_sessions_by_ids, init_db
-from utils import filter_sessions_by_project, get_all_unique_project_names
-
+from gui.utils import filter_sessions_by_project, get_all_unique_project_names
+from PyQt6.QtGui import QIcon
 
 class SelectLogWindow(QMainWindow, Ui_SelectLogWindow):
     """Main window for selecting, editing, and deleting log sessions."""
@@ -19,7 +19,8 @@ class SelectLogWindow(QMainWindow, Ui_SelectLogWindow):
         super().__init__()
         self.setupUi(self)
         self.show()
-
+        self.setWindowTitle("Select Log")
+        self.setWindowIcon(QIcon('images/logo.png'))
         # Initialize database (creates tables if not present)
         init_db()
 

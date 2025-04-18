@@ -1,5 +1,6 @@
 from PyQt6.QtWidgets import QDialog
 from PyQt6.QtCore import QDate, pyqtSignal
+from PyQt6.QtGui import QIcon
 
 from gui.ui_files.ui_calendar_window import Ui_CalendarWindow
 from tracker.storage import init_db
@@ -19,7 +20,8 @@ class CalendarWindow(QDialog, Ui_CalendarWindow):
         super().__init__()  # Initialize the base class (QDialog)
         self.setupUi(self)  # Set up the UI components from the .ui file
         init_db()  # Initialize the database
-
+        self.setWindowTitle("Calendar")
+        self.setWindowIcon(QIcon('images/logo.png'))
         # Connect the 'accepted' signal of the buttonBox to emit the selected date
         self.buttonBox.accepted.connect(self.emit_selected_date)
         # Connect the 'rejected' signal of the buttonBox to close the dialog

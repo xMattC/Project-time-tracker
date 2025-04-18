@@ -6,8 +6,8 @@ from PyQt6.QtWidgets import QApplication, QDialog, QMessageBox
 from gui.ui_files.ui_mod_log_window import Ui_ModifyLogWindow
 from tracker.storage import get_session_by_id, init_db
 from tracker.core import amend_db_session
-from calendar_window import CalendarWindow
-
+from gui.calendar_window import CalendarWindow
+from PyQt6.QtGui import QIcon
 
 class ModifyLogWindow(QDialog, Ui_ModifyLogWindow):
     """Dialog for modifying log session details."""
@@ -23,7 +23,8 @@ class ModifyLogWindow(QDialog, Ui_ModifyLogWindow):
         self.session_id = None  # Will be set later
         self.dateEdit_clock_in.setDisplayFormat('dd MMM yy')
         self.dateEdit_clock_out.setDisplayFormat('dd MMM yy')
-
+        self.setWindowTitle("Edit Log")
+        self.setWindowIcon(QIcon('images/logo.png'))
         self.calendar_window = None  # Keeps a persistent reference
 
         # Connect buttons to their actions

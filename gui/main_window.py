@@ -1,16 +1,17 @@
-import sys
+import sys, os
 
 from PyQt6.QtWidgets import QFileDialog, QMainWindow, QApplication, QMessageBox, QInputDialog, QHeaderView
 from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QIcon
 import pandas as pd
 
 from tracker import core, reports
 from tracker.storage import init_db, get_connection
 from gui.ui_files.ui_main_window import Ui_MainWindow
-from select_log_window import SelectLogWindow
-from log_table_updater import LogTableUpdater
-from total_hours_updater import ReportTableUpdater
-from utils import get_all_unique_project_names, check_if_clocked_in
+from gui.select_log_window import SelectLogWindow
+from gui.log_table_updater import LogTableUpdater
+from gui.total_hours_updater import ReportTableUpdater
+from gui.utils import get_all_unique_project_names, check_if_clocked_in
 
 DB = get_connection()
 
@@ -27,6 +28,9 @@ class ProjectTrackerWindow(QMainWindow, Ui_MainWindow):
         self.show()  # Display the main window
         init_db()  # Initialize the database
         self.combi_box_default = "-- Choose --"
+        self.setWindowTitle("Project Time Tracker")
+        logo_path = os.path.join(os.getcwd(), 'images', 'logo.png')
+        self.setWindowIcon(QIcon(logo_path))
 
         # Connect buttons to their respective actions
         self.button_clock_in.clicked.connect(self.clock_in)  # Connect clock-in button
