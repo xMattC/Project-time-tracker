@@ -39,7 +39,8 @@ class ModifyLogWindow(QDialog, Ui_ModifyLogWindow):
         self.set_default_time(self.dateEdit_clock_in, self.timeEdit_clock_in, session_data['clock_in'])
         self.set_default_time(self.dateEdit_clock_out, self.timeEdit_clock_out, session_data['clock_out'])
 
-    def set_default_time(self, date_widget, time_widget, timestamp):
+    @staticmethod
+    def set_default_time(date_widget, time_widget, timestamp):
         """Sets the default date and time from a timestamp string."""
         date, time = timestamp.split(' ')
         hours, minutes, seconds = map(int, time[:8].split(':'))
