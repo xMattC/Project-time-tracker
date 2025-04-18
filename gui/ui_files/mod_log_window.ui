@@ -59,7 +59,7 @@
      <widget class="QDateEdit" name="dateEdit_clock_out"/>
     </item>
     <item>
-     <widget class="QPushButton" name="pushButton_3">
+     <widget class="QPushButton" name="pushButton_calendar_clock_out">
       <property name="text">
        <string>Select</string>
       </property>
@@ -97,7 +97,7 @@
      <widget class="QDateEdit" name="dateEdit_clock_in"/>
     </item>
     <item>
-     <widget class="QPushButton" name="pushButton_2">
+     <widget class="QPushButton" name="pushButton_calendar_clock_in">
       <property name="text">
        <string>Select</string>
       </property>
