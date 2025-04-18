@@ -99,11 +99,3 @@ The application window will open, allowing you to:
 
 The project uses a **SQLite** database to store time logs. The database will be automatically initialized when the application runs for the first time.
 
-
-## Contributing
-
-Contributions to the project are welcome! If you have suggestions or improvements, feel free to fork the repository, make changes, and submit a pull request.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
