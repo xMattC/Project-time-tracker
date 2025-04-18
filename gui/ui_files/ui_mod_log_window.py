@@ -37,9 +37,9 @@ class Ui_ModifyLogWindow(object):
         self.dateEdit_clock_out = QtWidgets.QDateEdit(parent=self.layoutWidget)
         self.dateEdit_clock_out.setObjectName("dateEdit_clock_out")
         self.horizontalLayout_2.addWidget(self.dateEdit_clock_out)
-        self.pushButton_3 = QtWidgets.QPushButton(parent=self.layoutWidget)
-        self.pushButton_3.setObjectName("pushButton_3")
-        self.horizontalLayout_2.addWidget(self.pushButton_3)
+        self.pushButton_calendar_clock_out = QtWidgets.QPushButton(parent=self.layoutWidget)
+        self.pushButton_calendar_clock_out.setObjectName("pushButton_calendar_clock_out")
+        self.horizontalLayout_2.addWidget(self.pushButton_calendar_clock_out)
         self.layoutWidget1 = QtWidgets.QWidget(parent=ModifyLogWindow)
         self.layoutWidget1.setGeometry(QtCore.QRect(20, 20, 281, 26))
         self.layoutWidget1.setObjectName("layoutWidget1")
@@ -59,9 +59,9 @@ class Ui_ModifyLogWindow(object):
         self.dateEdit_clock_in = QtWidgets.QDateEdit(parent=self.layoutWidget1)
         self.dateEdit_clock_in.setObjectName("dateEdit_clock_in")
         self.horizontalLayout.addWidget(self.dateEdit_clock_in)
-        self.pushButton_2 = QtWidgets.QPushButton(parent=self.layoutWidget1)
-        self.pushButton_2.setObjectName("pushButton_2")
-        self.horizontalLayout.addWidget(self.pushButton_2)
+        self.pushButton_calendar_clock_in = QtWidgets.QPushButton(parent=self.layoutWidget1)
+        self.pushButton_calendar_clock_in.setObjectName("pushButton_calendar_clock_in")
+        self.horizontalLayout.addWidget(self.pushButton_calendar_clock_in)
 
         self.retranslateUi(ModifyLogWindow)
         self.buttonBox.accepted.connect(ModifyLogWindow.accept) # type: ignore
@@ -72,9 +72,9 @@ class Ui_ModifyLogWindow(object):
         _translate = QtCore.QCoreApplication.translate
         ModifyLogWindow.setWindowTitle(_translate("ModifyLogWindow", "Dialog"))
         self.label_3.setText(_translate("ModifyLogWindow", "Clock-out"))
-        self.pushButton_3.setText(_translate("ModifyLogWindow", "Select"))
+        self.pushButton_calendar_clock_out.setText(_translate("ModifyLogWindow", "Select"))
         self.label_2.setText(_translate("ModifyLogWindow", "Clock-in"))
-        self.pushButton_2.setText(_translate("ModifyLogWindow", "Select"))
+        self.pushButton_calendar_clock_in.setText(_translate("ModifyLogWindow", "Select"))
 
 
 if __name__ == "__main__":

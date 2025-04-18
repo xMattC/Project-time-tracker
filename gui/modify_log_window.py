@@ -6,6 +6,7 @@ from PyQt6.QtWidgets import QApplication, QDialog, QMessageBox
 from gui.ui_files.ui_mod_log_window import Ui_ModifyLogWindow
 from tracker.storage import get_session_by_id, init_db
 from tracker.core import amend_db_session
+from calendar_window import CalendarWindow
 
 
 class ModifyLogWindow(QDialog, Ui_ModifyLogWindow):
@@ -23,9 +24,15 @@ class ModifyLogWindow(QDialog, Ui_ModifyLogWindow):
         self.dateEdit_clock_in.setDisplayFormat('dd MMM yy')
         self.dateEdit_clock_out.setDisplayFormat('dd MMM yy')
 
+        self.calendar_window = None  # Keeps a persistent reference
+
         # Connect buttons to their actions
         self.buttonBox.accepted.connect(self.accept_action)
         self.buttonBox.rejected.connect(self.reject_action)
+
+        # Connect calendar button (clock-in) to open calendar window
+        self.pushButton_calendar_clock_in.clicked.connect(self.calendar_clock_in_time)
+        self.pushButton_calendar_clock_out.clicked.connect(self.calendar_clock_out_time)
 
     def load_session(self, session_id):
         """Load session data into UI for editing."""
@@ -59,6 +66,26 @@ class ModifyLogWindow(QDialog, Ui_ModifyLogWindow):
         time = self.timeEdit_clock_out.time().toString("HH:mm:ss")
         return f"{date} {time}"
 
+    def calendar_clock_in_time(self):
+        """Open calendar window for selecting clock-in date."""
+        self.calendar_window_in = CalendarWindow()
+        self.calendar_window_in.date_selected.connect(self.set_clock_in_date)
+        self.calendar_window_in.exec()
+
+    def calendar_clock_out_time(self):
+        """Open calendar window for selecting clock-out date."""
+        self.calendar_window_out = CalendarWindow()
+        self.calendar_window_out.date_selected.connect(self.set_clock_out_date)
+        self.calendar_window_out.exec()
+
+    def set_clock_in_date(self, date):
+        """Set selected clock-in date in the date edit field."""
+        self.dateEdit_clock_in.setDate(date)
+
+    def set_clock_out_date(self, date):
+        """Set selected clock-out date in the date edit field."""
+        self.dateEdit_clock_out.setDate(date)
+
     def accept_action(self):
         """Validate inputs, update session, and close the dialog."""
         try:
@@ -71,7 +98,7 @@ class ModifyLogWindow(QDialog, Ui_ModifyLogWindow):
 
             amend_db_session(self.session_id, "clock_in", clock_in)
             amend_db_session(self.session_id, "clock_out", clock_out)
-            self.session_updated.emit()
+            self.session_updated.emit()  # Emit the session updated signal
             self.accept()  # Close the dialog
         except Exception as e:
             print(f"Failed to update session {self.session_id}: {e}")
@@ -81,3 +108,10 @@ class ModifyLogWindow(QDialog, Ui_ModifyLogWindow):
         """Close the dialog without saving changes."""
         self.reject()  # Close the dialog without saving changes
 
+
+if __name__ == "__main__":
+    # Launch the application
+    app = QApplication(sys.argv)
+    window = ModifyLogWindow()
+    window.show()  # Ensure the window is explicitly shown
+    sys.exit(app.exec())
