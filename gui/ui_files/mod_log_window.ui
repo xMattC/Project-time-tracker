@@ -53,10 +53,10 @@
      </widget>
     </item>
     <item>
-     <widget class="QDateEdit" name="dateEdit_2"/>
+     <widget class="QTimeEdit" name="timeEdit_clock_out"/>
     </item>
     <item>
-     <widget class="QTimeEdit" name="timeEdit_2"/>
+     <widget class="QDateEdit" name="dateEdit_clock_out"/>
     </item>
     <item>
      <widget class="QPushButton" name="pushButton_3">
@@ -67,7 +67,7 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>20</x>
@@ -91,10 +91,10 @@
      </widget>
     </item>
     <item>
-     <widget class="QDateEdit" name="dateEdit"/>
+     <widget class="QTimeEdit" name="timeEdit_clock_in"/>
     </item>
     <item>
-     <widget class="QTimeEdit" name="timeEdit"/>
+     <widget class="QDateEdit" name="dateEdit_clock_in"/>
     </item>
     <item>
      <widget class="QPushButton" name="pushButton_2">

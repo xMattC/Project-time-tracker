@@ -1,12 +1,16 @@
+import sys
+
+from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QApplication, QMainWindow, QMessageBox, QTableWidget, QAbstractItemView
 from PyQt6.QtWidgets import QHeaderView
-from tracker.storage import init_db, delete_sessions_by_ids
+
 from tracker import reports
+from tracker.storage import init_db, delete_sessions_by_ids
+from modify_log_window import ModifyLogWindow
 from gui.ui_files.ui_select_log_window import Ui_SelectLogWindow
+
 from log_table_updater import LogTableUpdater, LogTableManager
-from utility_functions import get_all_unique_project_names, filter_sessions_by_project
-from PyQt6.QtCore import Qt
-import sys
+from utils import get_all_unique_project_names, filter_sessions_by_project
 
 
 class SelectLogWindow(QMainWindow, Ui_SelectLogWindow):
@@ -34,7 +38,7 @@ class SelectLogWindow(QMainWindow, Ui_SelectLogWindow):
 
         # edit log button
         self.pushButton_edit_log.setEnabled(False)
-        self.select_log_window = None  # Keeps a persistent reference
+        self.edit_log_window = None  # Keeps a persistent reference
         self.pushButton_edit_log.clicked.connect(self.open_edit_log_window)
 
         # Connect selection change to update the button state
@@ -94,13 +98,18 @@ class SelectLogWindow(QMainWindow, Ui_SelectLogWindow):
         self.update_edit_button_state()
 
     def open_edit_log_window(self):
-        # Assuming the edit window takes the session_id as a parameter
-        # Create a new EditWindow instance and pass the session_id
-        # session_id
-        # if self.select_log_window is None:
-        #     self.select_log_window = SelectLogWindow(session_id)
-        # self.select_log_window.show()
-        pass
+
+        selected_id = self.session_table.get_selected_session_ids()[0]
+
+        if not selected_id:
+            QMessageBox.information(self, "No Selection", "Please select a session to edit.")
+            return
+
+        if not hasattr(self, 'edit_log_window') or self.edit_log_window is None:
+            self.edit_log_window = ModifyLogWindow(selected_id)
+
+        self.edit_log_window.show()
+
 
     def closeEvent(self, event):
         self.clear_table_selection()  # Clear any table selection when the window is closed
