@@ -107,11 +107,3 @@ class ModifyLogWindow(QDialog, Ui_ModifyLogWindow):
     def reject_action(self):
         """Close the dialog without saving changes."""
         self.reject()  # Close the dialog without saving changes
-
-
-if __name__ == "__main__":
-    # Launch the application
-    app = QApplication(sys.argv)
-    window = ModifyLogWindow()
-    window.show()  # Ensure the window is explicitly shown
-    sys.exit(app.exec())

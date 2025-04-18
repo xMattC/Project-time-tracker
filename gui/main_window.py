@@ -95,10 +95,14 @@ class ProjectTrackerWindow(QMainWindow, Ui_MainWindow):
         updater.update_table(report)  # Update the report table
 
     def update_sessions_table(self):
-        """Fetches and updates the sessions table with the latest session data."""
+        """Fetches and updates the sessions table with the latest session data, sorted by session date."""
         result = reports.list_sessions()  # Get the list of sessions
+
+        # Sort the sessions by clock-in time (descending) or session date if it's available
+        sorted_sessions = sorted(result['sessions'], key=lambda session: session['clock_in'], reverse=True)
+
         updater = LogTableUpdater(self.tableWidget_sessions)  # Create updater instance for the sessions table
-        updater.update_sessions_table(result)  # Update the sessions table
+        updater.update_sessions_table({"sessions": sorted_sessions})  # Update the sessions table with sorted data
 
     def update_project_combo_box(self):
         """Updates the project combo box with available projects from the database."""
