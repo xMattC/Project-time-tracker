@@ -1,7 +1,7 @@
 
 # Hour Tracker Project
 
-This Python project is designed to help track hours for various projects, following a simple clock-in/clock-out style. It includes a modular structure, utilizing PyQt6 for a graphical user interface (GUI). Whether you're tracking billable hours for clients or managing your personal project time, this tool is flexible and easy to use.
+This Python project is designed to help track hours for various projects, following a simple clock-in/clock-out style system. It includes a modular structure, utilizing PyQt6 for a graphical user interface (GUI). Whether you are tracking billable hours for clients or managing your personal project time, this tool is flexible and easy to use.
 
 ## Technologies Used
 
