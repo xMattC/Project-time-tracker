@@ -14,7 +14,7 @@ This Python project is designed to help track hours for various projects, follow
 ## Features
 
 - **Clock In/Out**: Start and stop tracking time for specific projects with ease.
-- **Edit Logs**: Modify time entries if corrections or updates are needed.
+- **Edit Logs**: Modify time entries if corrections or updates are required.
 - **Delete Logs**: Remove time entries that are no longer relevant or were entered incorrectly.
 - **Export to CSV**: Export time logs into a CSV format for external use or further analysis.
 
