@@ -6,7 +6,6 @@ This Python project is designed to help track hours for various projects, follow
 ## Technologies Used
 
 - **Python**: Core language for backend functionality, data handling, and business logic.
-- **Flask**: Web framework to implement a REST API for managing time tracking records.
 - **PyQt6**: Framework used to create the desktop GUI for user interaction.
 - **SQLite**: Lightweight relational database for storing time entries.
 
