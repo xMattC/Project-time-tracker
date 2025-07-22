@@ -91,8 +91,7 @@ The application window will open, allowing you to:
 The project uses a **SQLite** database to store time logs. The database will be automatically initialized when the application runs for the first time.
 
 ### TODO
-
-- [ ] Create a user-friendly Windows installer:
-    - Convert the script into a standalone `.exe` using PyInstaller.
-    - Bundle it with an installer (e.g., Inno Setup) to allow installation to Program Files.
-    - Add a Desktop shortcut with a custom icon.
+Create a user-friendly Windows installer:
+- Convert the script into a standalone `.exe` using PyInstaller.
+- Bundle it with an installer (e.g., Inno Setup) to allow installation to Program Files.
+- Add a Desktop shortcut with a custom icon.
