@@ -90,23 +90,34 @@ class ProjectTrackerWindow(QMainWindow, Ui_MainWindow):
 
     def update_hours_table(self):
         """Updates the hours table with the latest report data."""
-        # Remove any table sorting indicators
         self.tableWidget_reports.horizontalHeader().setSortIndicator(-1, Qt.SortOrder.AscendingOrder)
 
-        # Generate the report and update the table with new data
-        report = reports.generate_report()["report"]
-        updater = ReportTableUpdater(self.tableWidget_reports)  # Create updater instance for the report table
-        updater.update_table(report)  # Update the report table
+        result = reports.generate_report()
+
+        # Safe fallback when the report is missing
+        if not result or "report" not in result:
+            report = []
+        else:
+            report = result["report"]
+
+        updater = ReportTableUpdater(self.tableWidget_reports)
+        updater.update_table(report)
 
     def update_sessions_table(self):
         """Fetches and updates the sessions table with the latest session data, sorted by session date."""
-        result = reports.list_sessions()  # Get the list of sessions
+        result = reports.list_sessions()
 
-        # Sort the sessions by clock-in time (descending) or session date if it's available
+        # Safely handle missing or empty session lists
+        if not result or 'sessions' not in result or not result['sessions']:
+            updater = LogTableUpdater(self.tableWidget_sessions)
+            updater.update_sessions_table({"sessions": []})
+            return
+
+        # Sort the sessions if available
         sorted_sessions = sorted(result['sessions'], key=lambda session: session['clock_in'], reverse=True)
 
-        updater = LogTableUpdater(self.tableWidget_sessions)  # Create updater instance for the sessions table
-        updater.update_sessions_table({"sessions": sorted_sessions})  # Update the sessions table with sorted data
+        updater = LogTableUpdater(self.tableWidget_sessions)
+        updater.update_sessions_table({"sessions": sorted_sessions})
 
     def update_project_combo_box(self):
         """Updates the project combo box with available projects from the database."""
