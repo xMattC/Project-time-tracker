@@ -95,3 +95,11 @@ Create a user-friendly Windows installer:
 - Convert the script into a standalone `.exe` using PyInstaller.
 - Bundle it with an installer (e.g., Inno Setup) to allow installation to Program Files.
 - Add a Desktop shortcut with a custom icon.
+
+Flask front end:
+- User accounts (each user has their own projects/timers)
+- Dashboard (weekly totals, per-project totals)
+- CSV export via web
+- API endpoints + Swagger/OpenAPI (even if basic)
+- Docker Compose (app + DB)
+- Hosted demo (even a small free-tier deploy)
