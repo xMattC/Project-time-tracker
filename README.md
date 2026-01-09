@@ -100,6 +100,6 @@ Flask front end:
 - User accounts (each user has their own projects/timers)
 - Dashboard (weekly totals, per-project totals)
 - CSV export via web
-- API endpoints + Swagger/OpenAPI (even if basic)
-- Docker Compose (app + DB)
-- Hosted demo (even a small free-tier deploy)
+- API endpoints + Swagger/OpenAPI 
+- Docker Compose
+- Hosted demo 
