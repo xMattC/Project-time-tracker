@@ -1,21 +1,42 @@
+# Project Time Tracker
 
-# Hour Tracker Project
+A lightweight desktop application for tracking time spent on projects, built with Python, PyQt6, and SQLite.
 
-This Python project is designed to help track hours for various projects, following a simple clock-in/clock-out style system. It includes a modular structure, utilizing PyQt6 for a graphical user interface (GUI). Whether you are tracking billable hours for clients or managing your personal project time, this tool is flexible and easy to use.
+## Overview
 
-## Technologies Used
-
-- **Python**: Core language for backend functionality, data handling, and business logic.
-- **PyQt6**: Framework used to create the desktop GUI for user interaction.
-- **SQLite**: Lightweight relational database for storing time entries.
-
+This application provides a simple and structured way to log work sessions, manage project entries, and export time data. It was designed as a practical tool for tracking development and engineering work, with a focus on clarity, usability, and clean separation between logic and UI.
 
 ## Features
 
-- **Clock In/Out**: Start and stop tracking time for specific projects with ease.
-- **Edit Logs**: Modify time entries if corrections or updates are required.
-- **Delete Logs**: Remove time entries that are no longer relevant or were entered incorrectly.
-- **Export to CSV**: Export time logs into a CSV format for external use or further analysis.
+* Clock in / clock out tracking
+* Manual entry editing
+* Entry deletion
+* Project-based organisation
+* CSV export of tracked time
+* Simple and responsive desktop UI
+
+## Architecture
+
+The application is structured with a clear separation of concerns:
+
+* **GUI Layer (PyQt6)**
+  Handles user interaction and display.
+
+* **Core Logic Layer**
+  Manages time tracking, entry creation, and state handling.
+
+* **Persistence Layer (SQLite)**
+  Stores project and time entry data locally.
+
+This separation allows the core tracking logic to remain independent of the interface, making it easier to extend or reuse in other contexts.
+
+## Example Workflow
+
+1. Select or create a project
+2. Start tracking time (clock in)
+3. Stop tracking when finished (clock out)
+4. Review, edit, or delete entries
+5. Export results to CSV if needed
 
 ## Screenshots
 
@@ -28,78 +49,62 @@ Here are some screenshots of the application in action:
 - **Edit/Delete Logs**:
 
   ![Edit/Delete Logs](gui/images/edit-delete.png)
+  
+## Installation
 
-
-## Installation Instructions
-
-### Step 1: Clone the Repository
-
-Clone the repository to your local machine:
+Clone the repository:
 
 ```bash
-git clone https://github.com/xMattC/Project-time-tracker
+git clone https://github.com/xMattC/Project-time-tracker.git
 cd Project-time-tracker
 ```
 
-### Step 2: Set Up a Virtual Environment
-
-Create a virtual environment to manage dependencies:
+Create and activate a virtual environment:
 
 ```bash
-python -m venv .env
+python -m venv venv
 ```
 
-Activate the virtual environment:
+Windows:
 
-- On Windows:
-  ```bash
-  .env\Scripts\activate
-  ```
-- On macOS/Linux:
-  ```bash
-  source .env/bin/activate
-  ```
+```bash
+venv\Scripts\activate
+```
 
-### Step 3: Install Dependencies
+macOS/Linux:
 
-Install the required dependencies:
+```bash
+source venv/bin/activate
+```
+
+Install dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## Usage
-
-### Running the GUI
-
-To launch the GUI:
+Run the application:
 
 ```bash
 python main.py
 ```
 
-The application window will open, allowing you to:
-   - **Clock In**: Start tracking time for a specific project.
-   - **Clock Out**: End the tracking for the current project.
-   - **Add Project**: Manually enter a new project.
-   - **Edit Logs**: Modify existing time entries as needed.
-   - **Delete Logs**: Remove any unnecessary or incorrect time entries.
-   - **Export to CSV**: Export your time logs to a CSV file for further use.
+## Data Storage
 
-### Database
+All data is stored locally using SQLite. No external services are required.
 
-The project uses a **SQLite** database to store time logs. The database will be automatically initialized when the application runs for the first time.
+## Planned Improvements
 
-### TODO
-Create a user-friendly Windows installer:
-- Convert the script into a standalone `.exe` using PyInstaller.
-- Bundle it with an installer (e.g., Inno Setup) to allow installation to Program Files.
-- Add a Desktop shortcut with a custom icon.
+* Improved validation for time entries
+* Enhanced CSV export formatting
+* Unit tests for core tracking logic
+* Packaging for easier distribution
 
-Flask front end:
-- User accounts (each user has their own projects/timers)
-- Dashboard (weekly totals, per-project totals)
-- CSV export via web
-- API endpoints + Swagger/OpenAPI 
-- Docker Compose
-- Hosted demo 
+## Purpose
+
+This project demonstrates:
+
+* Desktop application development with PyQt6
+* Separation of UI and business logic
+* Local data persistence with SQLite
+* Practical tooling for time tracking workflows
