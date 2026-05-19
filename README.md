@@ -53,28 +53,6 @@ This project was built to demonstrate:
 
 ---
 
-## 📈 Application Architecture
-
-```mermaid
-flowchart TD
-
-A["User Interface<br>PyQt6 GUI"]
-
-B["Application Logic<br>Tracking + Entry Management"]
-
-C["Persistence Layer<br>SQLite Database"]
-
-D["Export Layer<br>CSV Output"]
-
-A --> B
-B --> C
-B --> D
-```
-
-The application separates user interaction, tracking logic, persistence, and export behaviour into distinct areas to improve maintainability.
-
----
-
 ## 🖼️ Screenshots
 
 Here are some screenshots of the application in action:
