@@ -1,110 +1,176 @@
+![Python](https://img.shields.io/badge/Python-3.x-blue?logo=python)
+![PyQt6](https://img.shields.io/badge/PyQt6-Desktop_GUI-41CD52)
+![SQLite](https://img.shields.io/badge/SQLite-Local_Storage-003B57?logo=sqlite)
+![CSV](https://img.shields.io/badge/CSV-Export-success)
+![Architecture](https://img.shields.io/badge/Architecture-Modular-success)
+
 # Project Time Tracker
 
-A lightweight desktop application for tracking time spent on projects, built with Python, PyQt6, and SQLite.
+A lightweight desktop time-tracking application built with Python, PyQt6, and SQLite.
 
-## Overview
+The application provides a simple way to track project-based work sessions, manage logged entries, and export time data for later review or reporting.
 
-This application provides a simple and structured way to log work sessions, manage project entries, and export time data. It was designed as a practical tool for tracking development and engineering work, with a focus on clarity, usability, and clean separation between logic and UI.
+This project focuses on desktop application development, local persistence, modular architecture, and separation of UI logic from core business logic.
 
-## Features
+---
 
-* Clock in / clock out tracking
-* Manual entry editing
-* Entry deletion
-* Project-based organisation
-* CSV export of tracked time
-* Simple and responsive desktop UI
+## 🎯 Engineering Focus
 
-## Architecture
+This project was built to demonstrate:
 
-The application is structured with a clear separation of concerns:
+- Desktop GUI development with PyQt6
+- Separation of UI and application logic
+- Local persistence using SQLite
+- Project-based time tracking workflows
+- CRUD operations for time entries
+- CSV export of tracked data
+- Modular Python application structure
+- Practical tooling for productivity workflows
 
-* **GUI Layer (PyQt6)**
-  Handles user interaction and display.
+---
 
-* **Core Logic Layer**
-  Manages time tracking, entry creation, and state handling.
+## 🛠️ Tech Stack
 
-* **Persistence Layer (SQLite)**
-  Stores project and time entry data locally.
+- **Language:** Python
+- **GUI:** PyQt6
+- **Database:** SQLite
+- **Data Export:** CSV
+- **Architecture:** Modular desktop application
+- **Development:** Git
 
-This separation allows the core tracking logic to remain independent of the interface, making it easier to extend or reuse in other contexts.
+---
 
-## Example Workflow
+## 🔑 Key Features
 
-1. Select or create a project
-2. Start tracking time (clock in)
-3. Stop tracking when finished (clock out)
-4. Review, edit, or delete entries
-5. Export results to CSV if needed
+- Clock in / clock out time tracking
+- Project-based organisation
+- Manual entry editing
+- Entry deletion
+- Local SQLite storage
+- CSV export
+- Lightweight desktop interface
+- CLI and GUI entry points
 
-## Screenshots
+---
+
+## 📈 Application Architecture
+
+```mermaid
+flowchart TD
+
+A["User Interface<br>PyQt6 GUI"]
+
+B["Application Logic<br>Tracking + Entry Management"]
+
+C["Persistence Layer<br>SQLite Database"]
+
+D["Export Layer<br>CSV Output"]
+
+A --> B
+B --> C
+B --> D
+```
+
+The application separates user interaction, tracking logic, persistence, and export behaviour into distinct areas to improve maintainability.
+
+---
+
+## 🔄 Example Workflow
+
+```text
+Select or create project
+        ↓
+Clock in
+        ↓
+Clock out
+        ↓
+Review entries
+        ↓
+Edit or delete logs
+        ↓
+Export CSV
+```
+
+---
+
+## 🖼️ Screenshots
 
 Here are some screenshots of the application in action:
 
-- **Clock In/Clock Out Interface**:
+### Clock In / Clock Out Interface
 
   ![Clock In/Out](gui/images/clock-in-out.png)
 
-- **Edit/Delete Logs**:
+### Edit / Delete Logs
 
   ![Edit/Delete Logs](gui/images/edit-delete.png)
-  
-## Installation
 
-Clone the repository:
+---
 
+## ⚙️ Running Locally
 ```bash
+# Clone the repository:
 git clone https://github.com/xMattC/Project-time-tracker.git
+
+# Change dir:
 cd Project-time-tracker
-```
 
-Create and activate a virtual environment:
+# Create a virtual environment:
+python -m venv .venv
 
-```bash
-python -m venv venv
-```
+# Activate the environment:
+.venv\Scripts\activate # Windows
 
-Windows:
+source .venv/bin/activate # Linux / macOS
 
-```bash
-venv\Scripts\activate
-```
-
-macOS/Linux:
-
-```bash
-source venv/bin/activate
-```
-
-Install dependencies:
-
-```bash
+# Install dependencies:
 pip install -r requirements.txt
+
+#Run the GUI application:
+python tracker_gui.py
+
+#Optional CLI entry point:
+python tracker_cli.py
 ```
 
-Run the application:
+---
 
-```bash
-python main.py
-```
+## 💾 Data Storage
 
-## Data Storage
+All data is stored locally using SQLite.
 
-All data is stored locally using SQLite. No external services are required.
+No external services are required.
 
-## Planned Improvements
+---
 
-* Improved validation for time entries
-* Enhanced CSV export formatting
-* Unit tests for core tracking logic
-* Packaging for easier distribution
+## ⚠️ Current Limitations
 
-## Purpose
+- Designed as a lightweight local desktop tool
+- No multi-user authentication
+- No cloud synchronisation
+- Limited automated test coverage
+- Packaging/distribution is not currently implemented
+
+---
+
+## 🚀 Planned Improvements
+
+- Improved validation for time entries
+- Enhanced CSV export formatting
+- Unit tests for core tracking logic
+- Application packaging for easier distribution
+- Additional reporting views
+
+---
+
+## 🧠 Software Engineering Skills Demonstrated
 
 This project demonstrates:
 
-* Desktop application development with PyQt6
-* Separation of UI and business logic
-* Local data persistence with SQLite
-* Practical tooling for time tracking workflows
+- Python desktop application development
+- GUI design with PyQt6
+- SQLite persistence
+- CRUD workflow implementation
+- Modular application structure
+- Local data export
+- Separation of concerns
