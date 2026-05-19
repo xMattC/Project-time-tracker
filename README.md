@@ -75,24 +75,6 @@ The application separates user interaction, tracking logic, persistence, and exp
 
 ---
 
-## 🔄 Example Workflow
-
-```text
-Select or create project
-        ↓
-Clock in
-        ↓
-Clock out
-        ↓
-Review entries
-        ↓
-Edit or delete logs
-        ↓
-Export CSV
-```
-
----
-
 ## 🖼️ Screenshots
 
 Here are some screenshots of the application in action:
